@@ -15,5 +15,8 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
+    Meteor.call('addNumbers',1,2, (err, res) => {
+        console.log('Geet User Arguments', err, res);
+    });
     ReactDOM.render(routes, document.getElementById('app'));
 });

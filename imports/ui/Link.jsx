@@ -1,7 +1,9 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 import { Links } from './../api/links';
+import LinksList from './LinksList';
 
 class Link extends React.Component {
     onLogout() {
@@ -13,7 +15,7 @@ class Link extends React.Component {
         e.preventDefault();
 
         if (url) {
-            Links.insert({ url });
+            Links.insert({ url, userId: Meteor.userId() });
             this.refs.url.value = '';
         }
     }
@@ -22,6 +24,7 @@ class Link extends React.Component {
             <div>
                 <h1>Your Links</h1>
                 <button onClick={this.onLogout.bind(this)}>Logout</button>
+                <LinksList/>
                 <p>Add Link</p>
                 <form onSubmit={this.onSubmit.bind(this)}>
                     <input type="text" ref="url" placeholder="URL"/>
