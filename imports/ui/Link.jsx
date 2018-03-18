@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 // My Code
-import { Links } from './../api/links';
 import LinksList from './LinksList';
 import AddLink from './AddLink';
 import PrivateHeader from './PrivateHeader';
