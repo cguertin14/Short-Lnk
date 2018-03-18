@@ -1,7 +1,11 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+import { Session } from 'meteor/session';
+
+// My code
 import { Links } from './../api/links';
+import LinkListItem from './LinkListItem';
 
 export default class LinksList extends React.Component {
     constructor(props) {
@@ -11,23 +15,21 @@ export default class LinksList extends React.Component {
         };
     }
     componentDidMount() {
-        console.log('componentDidMount LinksList');
         this.linksTracker = Tracker.autorun(() => {
             Meteor.subscribe('links');
-            const links = Links.find().fetch();
+            const links = Links.find({ visible: Session.get('showVisible') }).fetch();
             this.setState({ links });
         });
     }
     componentWillUnmount() {
-        console.log('componentWillUnmount LinksList');
         this.linksTracker.stop();
     }
     renderLinksListItems() {
         return this.state.links.map(link => {
-            return <p key={link._id}>{link.url}</p>;
+            return <LinkListItem key={link._id} shortUrl={Meteor.absoluteUrl(link._id)} {...link} />
         });
     }
-    render() {
+    render() {
         return (
             <div>
                 <p>Link List</p>

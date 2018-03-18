@@ -11,7 +11,7 @@ export default class SignUp extends React.Component {
     }
     onSubmit(e) {
         e.preventDefault();
-         
+
         let email = this.refs.email.value.trim();
         let password = this.refs.password.value.trim();
 
@@ -21,7 +21,7 @@ export default class SignUp extends React.Component {
             });
         }
 
-        Accounts.createUser({email, password}, (err) => {
+        Accounts.createUser({ email, password }, (err) => {
             if (err) {
                 this.setState({ error: err.reason });
             } else {
@@ -35,10 +35,10 @@ export default class SignUp extends React.Component {
                 <h1>Join Short Lnk</h1>
 
                 {this.state.error ? <p>{this.state.error}</p> : undefined}
-            
+
                 <form onSubmit={this.onSubmit.bind(this)} noValidate>
-                    <input type="email" ref="email" name="email" placeholder="Email"/>
-                    <input type="password" ref="password" name="password" placeholder="Password"/>
+                    <input type="email" ref="email" name="email" placeholder="Email" />
+                    <input type="password" ref="password" name="password" placeholder="Password" />
                     <button type="submit">Create Account</button>
                 </form>
 

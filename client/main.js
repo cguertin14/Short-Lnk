@@ -3,20 +3,16 @@ import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 import { onAuthChange, routes } from './../imports/routes/routes';
 import { Links } from './../imports/api/links';
+import { Session } from 'meteor/session';
+
+import '../imports/startup/simple-schema-configuration';
 
 Tracker.autorun(() => {
     const isAuthenticated = !!Meteor.userId();
     onAuthChange(isAuthenticated);
 });
 
-Tracker.autorun(() => {
-    const links = Links.find().fetch();
-    console.log('New Links',links);
-});
-
 Meteor.startup(() => {
-    Meteor.call('addNumbers',1,2, (err, res) => {
-        console.log('Geet User Arguments', err, res);
-    });
+    Session.set('showVisible',true);
     ReactDOM.render(routes, document.getElementById('app'));
 });
