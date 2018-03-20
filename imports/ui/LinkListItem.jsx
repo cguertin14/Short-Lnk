@@ -27,21 +27,21 @@ export default class LinkListItem extends React.Component {
         const visitMessage = this.props.visitedCount === 1 ? 'visit' : 'visits';
         let visitedMessage = null;
 
-        if (typeof(this.props.lastVisitedAt) === 'number') {
+        if (typeof (this.props.lastVisitedAt) === 'number') {
             visitedMessage = `(visited ${moment(this.props.lastVisitedAt).fromNow()})`;
         }
 
-        return <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
+        return <p className="item__message">{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
     }
     render() {
         return (
-            <div>
+            <div className="item">
                 <h2>{this.props.url}</h2>
-                <p>{this.props.visible.toString()}</p>
+                <p className="item__message">{this.props.shortUrl}</p>
                 {this.renderStats()}
-                <a href={this.props.shortUrl} target="blank">Visit</a>
-                <button ref="copy" data-clipboard-text={this.props.shortUrl}>{this.state.justCopied ? 'Copied' : 'Copy'}</button>
-                <button onClick={() => Meteor.call('links.setVisibility', this.props._id, !this.props.visible)}>
+                <a href={this.props.shortUrl} target="blank" className="button button--pill button--link">Visit</a>
+                <button className="button button--pill" ref="copy" data-clipboard-text={this.props.shortUrl}>{this.state.justCopied ? 'Copied' : 'Copy'}</button>
+                <button className="button button--pill" onClick={() => Meteor.call('links.setVisibility', this.props._id, !this.props.visible)}>
                     {this.props.visible ? 'Hide' : 'Unhide'}
                 </button>
             </div>

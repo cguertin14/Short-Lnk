@@ -24,15 +24,17 @@ export default class AddLink extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.setState({ isOpen: true })}>+ Add Link</button>
+                <button className="button" onClick={() => this.setState({ isOpen: true })}>+ Add Link</button>
                 <Modal
                     isOpen={this.state.isOpen}
                     contentLabel="Add Link"
                     onAfterOpen={() => this.refs.url.focus()}
-                    onRequestClose={this.handleModalClose.bind(this)}>
+                    onRequestClose={this.handleModalClose.bind(this)}
+                    className="boxed-view__box"
+                    overlayClassName="boxed-view boxed-view--modal">
                     <p>Add Link</p>
                     {this.state.error ? <p>{this.state.error}</p> : undefined}
-                    <form onSubmit={this.onSubmit.bind(this)}>
+                    <form onSubmit={this.onSubmit.bind(this)} className="boxed-view__form">
                         <input
                             type="text"
                             placeholder="URL"
@@ -40,9 +42,9 @@ export default class AddLink extends React.Component {
                             value={this.state.url}
                             onChange={this.onChange.bind(this)}
                         />
-                        <button>Add Link</button>
+                        <button className="button">Add Link</button>
+                        <button type="button" className="button button--secondary" onClick={this.handleModalClose.bind(this)}>Cancel</button>
                     </form>
-                    <button onClick={this.handleModalClose.bind(this)}>Cancel</button>
                 </Modal>
             </div>
         );
@@ -59,7 +61,7 @@ export default class AddLink extends React.Component {
             if (!err) {
                 this.handleModalClose();
             } else {
-                this.setState({ error: err.reason });
+                this.setState({ error: 'URL must be a valid Url' });
             }
         });
     }

@@ -9,11 +9,13 @@ import LinksListFilter from './LinksListFilter';
 
 export default withRouter(() => {
     return (
-        <div>
-            <PrivateHeader title="Your Links" />
-            <LinksListFilter />
-            <LinksList />
-            <AddLink />
+        <div> 
+            <PrivateHeader title="Short Lnk" />
+            <div className="page-content">
+                <LinksListFilter />
+                <AddLink />
+                <LinksList />
+            </div>
         </div>
     );
 });
